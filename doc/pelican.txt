@@ -1,11 +1,11 @@
 *pelican.txt*
 
-Author: mt3
+Author: mt3, edthedev
 
 ==============================================================================
 INTRODUCTION                                    *pelican*
 
-This script is intended to automate the process of creating and editing
+This script is intended to facilitate the process of creating and editing
 Pelican (http://getpelican.com/) blog posts from within vim.
 
 ==============================================================================
@@ -13,6 +13,12 @@ CONFIGURATION                                   *pelican-configuration*
 
 There are a few global variables that can be set to adjust the way vim handles
 Pelican blogs. Default values for each are listed below unless noted.
+
+
+TODO: Document these...
+    let g:pelican_git_master = 'https://edthedev@bitbucket.org/edthedev/blog.git'
+
+    let g:pelican_local_root = '~/Copy/blog'
 
                                                 *g:pelican_post_dirs*  >
     let g:pelican_post_dirs = ['_posts', '_source/_posts']
