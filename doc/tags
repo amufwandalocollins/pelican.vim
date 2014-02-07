@@ -1,0 +1,17 @@
+g:pelican_build_command	pelican.txt	/*g:pelican_build_command*
+g:pelican_post_dirs	pelican.txt	/*g:pelican_post_dirs*
+g:pelican_post_extension	pelican.txt	/*g:pelican_post_extension*
+g:pelican_post_filetype	pelican.txt	/*g:pelican_post_filetype*
+g:pelican_post_template	pelican.txt	/*g:pelican_post_template*
+g:pelican_site_dir	pelican.txt	/*g:pelican_site_dir*
+pelican	pelican.txt	/*pelican*
+pelican-:PSpost	pelican.txt	/*pelican-:PSpost*
+pelican-:PTpost	pelican.txt	/*pelican-:PTpost*
+pelican-:PVpost	pelican.txt	/*pelican-:PVpost*
+pelican-:Pbuild	pelican.txt	/*pelican-:Pbuild*
+pelican-:Ppost	pelican.txt	/*pelican-:Ppost*
+pelican-about	pelican.txt	/*pelican-about*
+pelican-commands	pelican.txt	/*pelican-commands*
+pelican-configuration	pelican.txt	/*pelican-configuration*
+pelican-license	pelican.txt	/*pelican-license*
+pelican.txt	pelican.txt	/*pelican.txt*
