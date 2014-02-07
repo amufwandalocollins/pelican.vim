@@ -18,23 +18,27 @@
 
 " 1. Install pelican
 function! pelican#install()
+    echom 'Installing Pelican...'
     execute '!pip install --upgrade pelican'
 endfunction
 
 " 1. Install pelican
 function! pelican#sudo_install()
+    echom 'Installing Pelican with superuser permissions...'
     execute '!sudo pip install --upgrade pelican'
 endfunction
 
 
 " 2. Clone your existing blog from Git 
 function! pelican#clone()
+    echom 'Cloned blog source into '.g:pelican_blog_source
     execute '!git clone '.g:pelican_git_master.' '.g:pelican_blog_source
     execute '!ls '.g:pelican_blog_source
 endfunction
 
 " 3. Init a new blog 
 function! pelican#initblog()
+    echom 'Created new blog source files at '.g:pelican_blog_source
     execute '!mkdir -p '.g_pelican_blog_source
     execute '!cd '.g:pelican_blog_source
     execute '!setvirtualenvproject'
@@ -56,6 +60,7 @@ function! pelican#rst2html()
     " Assumes pelican.conf.py and content folder exist in pelican_blog_source
     " folder.
     execute '!pelican -s '.g:pelican_blog_source.'/pelicanconf.py '.g:pelican_blog_source.'/content -o '.g:pelican_blog_html
+    echom 'Generated HTML output at '.g:pelican_blog_html
     " execute '!make html'
     " TODO if auto-regenerate flag is set
     " execute '!make regenerate'
@@ -65,6 +70,7 @@ endfunction
 "   with Rsync
 function! pelican#publish()
     execute '!rsync --recursive '.g:pelican_blog_html.'/* '.g:pelican_publish_server
+    echom 'Published HTML to '.g:pelican_publish_server
 endfunction
 
 " ===========
