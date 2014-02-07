@@ -51,13 +51,17 @@ If you publish your Pelican_ blog over SSH, tell Pelican.vim the destination loc
 Altogether, the directives added to your ``~/.vimrc`` should looke a bit like::
 
     Bundle 'edthedev/pelican.vim'
-    let g:pelican_blog_source = ~/blog_source_files
-    let g:pelican_blog_html = ~/blog_html_destination
-    let g:pelican_git_master = http://github.com/username/blog.git
-    let g:pelican_publish_server = username@server.domain.com:~/public_html_directory
+    let g:pelican_blog_source = '~/blog_source_files'
+    let g:pelican_blog_html = '~/blog_html_destination'
+    let g:pelican_git_master = 'http://github.com/username/blog.git'
+    let g:pelican_publish_server = 'username@server.domain.com:~/public_html_directory'
 
 Commands
 ---------
+Before the first usage, you may need to install Pelican_ using one of:: 
+
+    pelican#install()
+    pelican#sudo_install()
 
 Clone your Pelican blog source files from your Git repository::
 
