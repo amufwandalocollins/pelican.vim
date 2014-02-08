@@ -56,32 +56,50 @@ Altogether, the directives added to your ``~/.vimrc`` should looke a bit like::
     let g:pelican_git_master = 'http://github.com/username/blog.git'
     let g:pelican_publish_server = 'username@server.domain.com:~/public_html_directory'
 
-Commands
----------
-Before the first usage, you may need to install Pelican_ using one of:: 
+Typical Usage
+----------------
+If your configured ``g:pelican_blog_source`` is already a Git clone of ``g:pelican_git_master`` then you can proceed to using Pelican.vim immediately. If not, see 'Getting Started from Scratch', below.
 
-    pelican#install()
-    pelican#sudo_install()
+If necessary, clone your existing blog from your remote Git repository::
 
-Clone your Pelican blog source files from your Git repository::
+    :call pelican#clone()
+
+Make sure the files in the directory indicated by ``g:pelican_blog_source`` are up to date from the latest in Git::
 
     :call pelican#pull()
 
-Make some changes::
+Open your Pelican content folder (that is, ``g:pelican_blog_source``), and make some changes to some posts.::
 
-    TODO: Command to open your source folder.
+    :call pelican#content()
 
-Commit and push your changes back to your Git repository.::
+Commit and push your changes back to your remote Git repository. The commit message will always be 'Checking in latest blog changes'.::
 
     :call pelican#commit()
 
-Generate your blog HTML. This command requires that pelican.conf.py and a 'content' folder exist in g:pelican_blog_source folder.::
+Generate your blog HTML. This command requires that pelican.conf.py and a 'content' folder exist in folder indicated by ``g:pelican_blog_source``.::
 
     :call pelican#rst2html()
 
 Publish your updated HTML content, using Rsync_, to your remote web server::
 
     :call pelican#publish()
+
+Getting Started from Scratch
+--------------------------------
+Follow these instructions if you are not already using Pelican_ with Git.
+
+Before the first usage, you may need to install Pelican_ using one of:: 
+
+    pelican#install()
+    pelican#sudo_install()
+
+Create a new, local Pelican directory, and then push it to the remote Git repository::
+
+    :call pelican#initblog()
+
+Configure your new Pelican blog by opening ``pelicanconf.py``::
+
+    pelican#config()
 
 .. _Rsync: http://rsync.samba.org/ 
 

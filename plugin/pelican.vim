@@ -28,28 +28,41 @@ function! pelican#sudo_install()
     execute '!sudo pip install --upgrade pelican'
 endfunction
 
-
-" 2. Clone your existing blog from Git 
-function! pelican#clone()
-    echom 'Cloned blog source into '.g:pelican_blog_source
-    execute '!git clone '.g:pelican_git_master.' '.g:pelican_blog_source
-    execute '!ls '.g:pelican_blog_source
-endfunction
-
-" 3. Init a new blog 
+" 2. Init a new blog 
 function! pelican#initblog()
     echom 'Created new blog source files at '.g:pelican_blog_source
     execute '!mkdir -p '.g_pelican_blog_source
     execute '!cd '.g:pelican_blog_source
     execute '!setvirtualenvproject'
     execute '!pelican-quickstart'
+    echom 'Attempting to push all content from '.g:pelican_blog_source.' to remote Git repository at '.g:pelican_git_master
+    execute '!cd '.g:pelican_blog_source.';git remote add origin '.g:pelican_git_master
+    execute '!cd '.g:pelican_blog_source.';git push -u origin --all'
 endfunction
+
+" 3. Configure Pelcian
+function! pelican#config()
+    execute ':e '.g:pelican_blog_source.'/pelicanconf.py'
+endfunction
+
+" 5. Or Clone your existing blog from Git 
+function! pelican#clone()
+    echom 'Cloned blog source into '.g:pelican_blog_source
+    execute '!git clone '.g:pelican_git_master.' '.g:pelican_blog_source
+    execute '!ls '.g:pelican_blog_source
+endfunction
+
 
 " ==============
 " Compose Tasks
 " ==============
-" Ignoring this for now, since alternate plugins are available.
+" I am leaving this somewhat feature incomplete, for now, since alternate plugins are available.
 "  For example, http://github.com/edthedev/minion
+
+" Open your Pelican content directory.
+function! pelican#open()
+    execute ':e '.g:pelican_blog_source.'/content'
+endfunction
 
 " ==============
 " Publish Tasks
