@@ -11,88 +11,105 @@ Pelican (http://getpelican.com/) blog posts from within vim.
 ==============================================================================
 CONFIGURATION                                   *pelican-configuration*
 
-There are a few global variables that can be set to adjust the way vim handles
-Pelican blogs. Default values for each are listed below unless noted.
+There are a few global variables that must be set to control the way pelican.vim
+handles your Pelican blog. 
 
+                                                *g:pelican_blog_source*  >
+    let g:pelican_blog_source = '~/blog_source_files'
 
-TODO: Document these...
-    let g:pelican_git_master = 'https://edthedev@bitbucket.org/edthedev/blog.git'
+Pelican.vim needs to know where your blog source files will be stored.
 
-    let g:pelican_local_root = '~/Copy/blog'
+                                                *g:pelican_blog_html*  >
+    let g:pelican_blog_html = '~/blog_html_destination'
 
-                                                *g:pelican_post_dirs*  >
-    let g:pelican_post_dirs = ['_posts', '_source/_posts']
-A |List| containing paths to search to identify a Pelican blog's posts
-directory. For most Pelican blogs, this will be `_posts`. Octopress posts are
-kept in `_source/_posts`.
+Pelican.vim needs to know where to place the generated HTML files (locally).
 
-                                                *g:pelican_post_extension*  >
-    let g:pelican_post_extension = '.rst'
-The extension used when creating new posts.
+                                                *g:pelican_git_master*  >
+    let g:pelican_git_master = 'http://github.com/username/blog.git'
 
-                                                *g:pelican_post_filetype*  >
-    let g:pelican_post_filetype = 'liquid'
-The |filetype| used when creating new posts.
+If you store your blog source files in a Git repository, 
+let Pelican.vim manage commits for you.
 
-                                                *g:pelican_post_template*  >
-    let g:pelican_post_template =  [
-      \ '---',
-      \ 'layout: post',
-      \ 'title: "PELICAN_TITLE"',
-      \ 'date: "PELICAN_DATE"',
-      \ '---',
-      \ '']
-A |List| containing lines to used as a template when creating new posts.
-PELICAN_DATE and PELICAN_TITLE will be replaced with their real values.
+                                                *g:pelican_publish_server*  >
+    let g:pelican_publish_server = 'username@server.domain.com:~/html_directory'
 
-                                                *g:pelican_site_dir*  >
-    let g:pelican_site_dir = '_site'
-Directory to place generated files in when running the |:Jbuild| command.
-Relative to the root of your blog.
+If you publish your Pelican_ blog over SSH, tell Pelican.vim the destination, 
+and it can run a publish command for you.
 
-                                                *g:pelican_build_command*  >
-    let g:pelican_build_command = 'pelican --no-auto --no-server'
-Custom command to use to build your blog. By default this is unset.
+                                                *pelican-example-vimrc*  >
+
+    Bundle 'edthedev/pelican.vim'
+    let g:pelican_blog_source = '~/blog_source_files'
+    let g:pelican_blog_html = '~/blog_html_destination'
+    let g:pelican_git_master = 'http://github.com/username/blog.git'
+    let g:pelican_publish_server = 'username@server.domain.com:~/html_directory'
+
+Altogether, the directives added to your ``~/.vimrc`` should looke a bit like the above example.
 
 ==============================================================================
 COMMANDS                                        *pelican-commands*
 
-The |:Ppost| (Pelican post) command is used to create and edit blog posts. It
-has variants for opening a post in a horizontal or vertical split or a new
-tab. Call with a bang, (eg: :Ppost!) to create a new post. Call without a bang
-(eg: :Ppost) to edit a post. The |:Pbuild| command can be used to build a
-blog.
+If your configured ``g:pelican_blog_source`` is already a Git clone 
+of ``g:pelican_git_master`` then you can proceed to using Pelican.vim. 
+If not, see 'Getting Started from Scratch', below.
 
-                                                *pelican-:Ppost*
-:Ppost[!]  [{name}] Create or edit the specified post. With no argument, you
-                    will be prompted to select a post or enter a title.
+                                                *pelican-clone*
+If necessary, clone your existing blog from your remote Git repository.
 
-                                                *pelican-:PSpost*
-:PSpost[!] [{name}] Same as |:Jpost|, but opens post in a horizontal split.
+    :call pelican#clone()
 
-                                                *pelican-:PVpost*
-:PVpost[!] [{name}] Same as |:Jpost|, but opens post in a vertical split.
+                                                *pelican-pull*
+Make sure the files in the directory indicated by ``g:pelican_blog_source`` 
+are up to date from the latest in Git.
 
-                                                *pelican-:PTpost*
-:PTpost[!] [{name}] Same as |:Jpost|, but opens post in a tab.
+    :call pelican#pull()
+                                                *pelican-content*
+Open your Pelican content folder (that is, ``g:pelican_blog_source``), 
+and make some changes to some posts.
 
-                                                *pelican-:Pbuild*
-:Pbuild [{args}]    Generate blog. This will check for the presence of a
-                    Gemfile; if found `bundle exec` is used to run the
-                    `pelican` command. The blog will be built with: >
+    :call pelican#content()
+                                                *pelican-commit*
+Commit and push your changes back to your remote Git repository. 
+The commit message will always be 'Checking in latest blog changes'.
 
-            pelican --no-auto --no-server BLOG_ROOT BLOG_ROOT/SITE_DIR <args>
-<
-                    If this doesn't fit your situation, you can set a custom
-                    command with |g:pelican_build_command|. When using a custom
-                    command no check for a Gemfile is performed.
+    :call pelican#commit()
+
+                                                *pelican-html*
+Generate your blog HTML. This command requires that pelican.conf.py 
+and a 'content' folder exist in folder indicated by ``g:pelican_blog_source``.
+
+    :call pelican#rst2html()
+                                                *pelican-publish*
+Publish your updated HTML content, using Rsync, to your remote web server.
+
+    :call pelican#publish()
+
+==============================================================================
+GETTING STARTED FROM SCRATCH                    *pelican-from-scratch*
+
+Follow these instructions if you are not already using Pelican with Git.
+
+                                                *pelican-install*
+Before the first usage, you may need to install Pelican using one of:: 
+
+    :call pelican#install()
+    :call pelican#sudo_install()
+                                                *pelican-init*
+Create a new, local Pelican directory, and then push it to the remote Git repository::
+
+    :call pelican#initblog()
+
+                                                *pelican-config*
+Configure your new Pelican blog by opening ``pelicanconf.py``::
+
+    :call pelican#config()
 
 ==============================================================================
 ABOUT                                           *pelican-about*
 
 Grab the latest version or report a bug on Github:
 
-https://github.com/mt3/pelican.vim
+https://github.com/edthedev/pelican.vim
 
                                                 *pelican-license*
 Distributed under the same terms as Vim itself. See |license|.
