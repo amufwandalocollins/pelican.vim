@@ -29,7 +29,7 @@ Then, from within Vim, run BundleInstall.::
 
     :BundleInstall
 
-Configure
+Configuration
 -----------------------------
 
 Pelican.vim needs to know where your blog source files will be stored.::
