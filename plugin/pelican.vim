@@ -108,6 +108,36 @@ function! pelican#commit()
     execute '!cd '.g:pelican_blog_source.'; git push origin master'
 endfunction
 
+" ==================
+" Keyboard Mappings
+" ==================
+
+" Map keyboard shortcuts by default.
+if !exists('g:pelican_map_keys')
+	let g:pelican_map_keys = 1
+endif
+
+if g:pelican_map_keys
+    " Install 
+
+    " ":nnoremap <leader>pi :call pelican#install()<Cr>
+    " ":nnoremap <leader>px :call pelican#sudo_install()<Cr>
+    " ":nnoremap <leader>px :call pelican#initblog()<Cr>
+    " ":nnoremap <leader>px :call pelican#config()<Cr>
+    " ":nnoremap <leader>pc :call pelican#clone()<Cr>
+
+    " Edit
+    :nnoremap <leader>pp :call pelican#pull()<Cr>
+    :nnoremap <leader>po :call pelican#open()<Cr>
+    :nnoremap <leader>pd :call pelican#drafts()<Cr>
+    :nnoremap <leader>pc :call pelican#commit()<Cr>
+
+    " Publish
+    :nnoremap <leader>ph :call pelican#rst2html()<Cr>
+    :nnoremap <leader>pp :call pelican#publish()<Cr>
+endif
+
+
 " ===========
 " Older Code
 " ===========
