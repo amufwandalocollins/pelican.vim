@@ -64,6 +64,13 @@ function! pelican#open()
     execute ':e '.g:pelican_blog_source.'/content'
 endfunction
 
+" Open all of your blog post drafts
+function! pelican#drafts()
+    echom 'Opening all files in '.g:pelican_blog_source.'/drafts'
+    execute ':argadd '.g:pelican_blog_source.'/drafts/*'
+    execute ':buffers'
+endfunction
+
 " ==============
 " Publish Tasks
 " ==============
