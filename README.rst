@@ -31,7 +31,6 @@ Then, from within Vim, run BundleInstall.::
 
 Configuration
 -----------------------------
-
 Pelican.vim needs to know where your blog source files will be stored.::
 
     let g:pelican_blog_source = ~/blog_source_files
@@ -47,6 +46,10 @@ If you store your blog source files in a Git repository, let Pelican.vim manage 
 If you publish your Pelican_ blog over SSH, tell Pelican.vim the destination location, and it can run a publish command for you::
 
     let g:pelican_publish_server = username@server.domain.com:~/public_html_directory
+
+If you wish to disable the default Pelican.vim keyboard shortcut mappings::
+
+    let g:pelican_map_keys = 0
 
 Altogether, the directives added to your ``~/.vimrc`` should looke a bit like::
 
@@ -68,21 +71,49 @@ Make sure the files in the directory indicated by ``g:pelican_blog_source`` are 
 
     :call pelican#pull()
 
+    or
+    
+    <leader>pu
+
 Open your Pelican content folder (that is, ``g:pelican_blog_source``), and make some changes to some posts.::
 
-    :call pelican#content()
+    :call pelican#open()
+
+    or
+
+    <leader>po
+
+Open your Pelican drafts folder.::
+
+    :call pelican#drafts()
+
+    or 
+
+    <leader>pd 
 
 Commit and push your changes back to your remote Git repository. The commit message will always be 'Checking in latest blog changes'.::
 
     :call pelican#commit()
 
+    or 
+    
+    <leader>pc 
+
 Generate your blog HTML. This command requires that pelican.conf.py and a 'content' folder exist in folder indicated by ``g:pelican_blog_source``.::
 
     :call pelican#rst2html()
 
+    or
+
+    <leader>ph
+
 Publish your updated HTML content, using Rsync_, to your remote web server::
 
     :call pelican#publish()
+
+    or 
+
+    <leader>pp
 
 Getting Started from Scratch
 --------------------------------
