@@ -89,7 +89,7 @@ endfunction
 " Publish HTML content to remote server.
 "   with Rsync
 function! pelican#publish()
-    execute '!rsync --recursive '.g:pelican_blog_html.'/* '.g:pelican_publish_server
+    execute '!rsync --verbose --recursive '.g:pelican_blog_html.'/* '.g:pelican_publish_server
     echom 'Published HTML to '.g:pelican_publish_server
 endfunction
 
@@ -127,7 +127,7 @@ if g:pelican_map_keys
     " ":nnoremap <leader>pc :call pelican#clone()<Cr>
 
     " Edit
-    :nnoremap <leader>pp :call pelican#pull()<Cr>
+    :nnoremap <leader>pu :call pelican#pull()<Cr>
     :nnoremap <leader>po :call pelican#open()<Cr>
     :nnoremap <leader>pd :call pelican#drafts()<Cr>
     :nnoremap <leader>pc :call pelican#commit()<Cr>
